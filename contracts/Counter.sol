@@ -4,16 +4,12 @@ pragma solidity ^0.8.4;
 
 import "hardhat/console.sol";
 import "openzeppelin-solidity/contracts/token/ERC721/ERC721.sol";
+import "./OnlyOwnerOfNFT.sol";
 
-contract Counter {
+contract Counter is RestrictedAccess {
     uint256 count = 0;
 
     event CountedTo(uint256 number);
-
-    modifier onlyOwnerOfNFT(ERC721 _nft, uint256 _tokenId) {
-        require(_nft.ownerOf(_tokenId) == msg.sender);
-        _;
-    }
 
     function getCount() public view returns (uint256) {
         return count;
