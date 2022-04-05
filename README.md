@@ -1,61 +1,23 @@
-# Typescript Solidity Dev Starter Kit
+# Use case 2: Check whether the sender holds an NFT
 
-_Updated to use Hardhat!_
+We check that a sender of a message (msg.sender) is an owner of a specific NFT.
 
-This is a starter kit for developing, testing, and deploying smart contracts with a full Typescript environment. This stack uses [Hardhat](https://hardhat.org) as the platform layer to orchestrate all the tasks. [Ethers](https://docs.ethers.io/v5/) is used for all Ethereum interactions and testing.
+## Smart contract logic
+- We send NFT smart contract (ERC721) address and NFT ID as parameters to our smart contract method
+- We check that the sender of the message (msg.sender) is the owner of the NFT in the provided ERC721 NFT smart contract
 
-[Blog Post](https://medium.com/@rahulsethuram/the-new-solidity-dev-stack-buidler-ethers-waffle-typescript-tutorial-f07917de48ae)
+## Implementation
 
-## Using this Project
+Implemented as a modifier ```onlyOwnerOfNFT``` in ```contracts/Counter.sol:20``` which takes an address of ERC721 and token ID as input and checks that the msg.sender is it's owner, reverts otherwise.
+It is possible to throw a custom error with this code:
 
-Clone this repository, then install the dependencies with `npm install`. Build everything with `npm run build`. https://hardhat.org has excellent docs, and can be used as reference for extending this project.
+`if (_nft.ownerOf(_tokenId) != msg.sender) revert CustomError();`
 
-## Available Functionality
+## Install
+`npm install`
 
-### Build Contracts and Generate Typechain Typeings
+## Run tests
+`npm run build`
+`npm run test`
 
-`npm run compile`
 
-### Run Contract Tests & Get Callstacks
-
-In one terminal run `npx hardhat node`
-
-Then in another run `npm run test`
-
-Notes:
-
-- The gas usage table may be incomplete (the gas report currently needs to run with the `--network localhost` flag; see below).
-
-### Run Contract Tests and Generate Gas Usage Report
-
-In one terminal run `npx hardhat node`
-
-Then in another run `npm run test -- --network localhost`
-
-Notes:
-
-- When running with this `localhost` option, you get a gas report but may not get good callstacks
-- See [here](https://github.com/cgewecke/eth-gas-reporter#installation-and-config) for how to configure the gas usage report.
-
-### Run Coverage Report for Tests
-
-`npm run coverage`
-
-Notes:
-
-- running a coverage report currently deletes artifacts, so after each coverage run you will then need to run `npx hardhat clean` followed by `npm run build` before re-running tests
-- the branch coverage is 75%
-
-### Deploy to Ethereum
-
-Create/modify network config in `hardhat.config.ts` and add API key and private key, then run:
-
-`npx hardhat run --network rinkeby scripts/deploy.ts`
-
-### Verify on Etherscan
-
-Using the [hardhat-etherscan plugin](https://hardhat.org/plugins/nomiclabs-hardhat-etherscan.html), add Etherscan API key to `hardhat.config.ts`, then run:
-
-`npx hardhat verify --network rinkeby <DEPLOYED ADDRESS>`
-
-PRs and feedback welcome!
