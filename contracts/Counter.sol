@@ -6,7 +6,7 @@ import "hardhat/console.sol";
 import "openzeppelin-solidity/contracts/token/ERC721/ERC721.sol";
 import "./OnlyOwnerOfNFT.sol";
 
-contract Counter is RestrictedAccess {
+contract Counter is OnlyOwnerOfNFT {
     uint256 count = 0;
 
     event CountedTo(uint256 number);

@@ -1,6 +1,6 @@
 {
   "name": "solidity-only-owner-of-nft",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Implement a modifier checking msg.sender is the owner of target NFT",
   "main": "index.js",
   "scripts": {
